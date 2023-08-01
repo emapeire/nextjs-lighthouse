@@ -1,17 +1,18 @@
-import { useState } from 'react';
-import Head from 'next/head';
+import { useState } from "react";
+import Head from "next/head";
+import Image from "next/image";
 
-import Fuse from 'fuse.js';
-import _ from 'lodash';
+import Fuse from "fuse.js";
+import _ from "lodash";
 
-import styles from '../styles/Home.module.css';
-import CodeSampleModal from '../components/CodeSampleModal';
+import styles from "../styles/Home.module.css";
+import CodeSampleModal from "../components/CodeSampleModal";
 
 export default function Start({ countries }) {
   const [results, setResults] = useState(countries);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const fuse = new Fuse(countries, {
-    keys: ['name'],
+    keys: ["name"],
     threshold: 0.3,
   });
 
@@ -33,7 +34,12 @@ export default function Start({ countries }) {
         </h1>
 
         <div className={styles.heroImage}>
-          <img src="large-image.jpg" alt="Large Image" />
+          <Image
+            src="/large-image.jpg"
+            alt="Large Image"
+            width={3048}
+            height={2024}
+          />
         </div>
 
         <div>
@@ -91,7 +97,7 @@ export default function Start({ countries }) {
         >
           Powered by
           <span className={styles.logo}>
-            <img src="/vercel.svg" alt="Vercel Logo" />
+            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
@@ -100,7 +106,7 @@ export default function Start({ countries }) {
 }
 
 export async function getServerSideProps() {
-  const response = await fetch('https://restcountries.com/v3.1/all');
+  const response = await fetch("https://restcountries.com/v3.1/all");
   const countries = await response.json();
 
   return {
